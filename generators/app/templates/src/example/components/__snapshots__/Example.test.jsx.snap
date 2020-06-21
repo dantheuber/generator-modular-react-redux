@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Example component renders as expected 1`] = `
+<div>
+  count: 
+  0
+   - Random: 
+  0
+  <hr />
+  <button
+    id="increase"
+    onClick={[Function]}
+  >
+    Increase
+  </button>
+  <button
+    id="decrease"
+    onClick={[Function]}
+  >
+    Decrease
+  </button>
+  <button
+    id="reset"
+    onClick={[Function]}
+  >
+    Reset
+  </button>
+</div>
+`;

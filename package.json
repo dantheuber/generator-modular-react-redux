@@ -1,0 +1,50 @@
+{
+  "name": "generator-modular-react-redux",
+  "version": "0.0.1",
+  "description": "build modular react-redux applications",
+  "author": {
+    "name": "Daniel Essig",
+    "email": "dan.essig@gmail.com"
+  },
+  "files": [
+    "generators"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "react-redux",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "glob": "^7.1.6",
+    "yeoman-generator": "^4.10.1",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "gulp": "^4.0.2",
+    "gulp-eslint": "^6.0.0",
+    "gulp-exclude-gitignore": "^1.2.0",
+    "gulp-istanbul": "^1.1.3",
+    "gulp-mocha": "^7.0.2",
+    "gulp-plumber": "^1.2.1"
+  },
+  "repository": "git@github.com:dantheuber/generator-modular-react-redux",
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "scripts": {
+    "test": "gulp"
+  }
+}

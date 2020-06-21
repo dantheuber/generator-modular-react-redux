@@ -1,0 +1,7 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  
+  --sidebar-bg-color: #302E40;
+  --sidebar-font-color: #6F6F89;
+}

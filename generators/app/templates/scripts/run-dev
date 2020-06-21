@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+rm -rf dist/
+
+BABEL_ENV=test node_modules/.bin/webpack --config ./config/webpack.config.dev.js &
+node_modules/.bin/esw -w --ext js --ext jsx --fix src/ config/ tests/&
+wait
