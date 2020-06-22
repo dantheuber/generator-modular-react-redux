@@ -59,22 +59,35 @@ module.exports = class extends Generator {
     );
 
     // Add new reducer to the root reducers file
-    const reducerPath = path.join(this.contextRoot, 'src/reducers.js');
-    const content = fs.readFileSync(reducerPath, 'utf-8');
-    const nameImport = this.props.camelName.toUpperCase();
-    const newReducerImport = `\nimport { NAME as ${nameImport}, reducer as ${this.props.importName} } from './${this.props.moduleName}';`;
-    const newReducerLine = `  [${nameImport}]: ${this.props.importName},`;
-    const importRegex = /import \{ NAME as [A-Z]+, reducer as [a-zA-Z]+ \} from '\.\/[a-z\-]+';/g;
-    const reducerObjectLine = / {2}\[[A-Z]+\]: [A-Za-z]+,/g;
-    const objLines = content.match(reducerObjectLine);
-    const lastObjLine = objLines[objLines.length - 1];
-    const imports = content.match(importRegex);
-    const lastImport = imports[imports.length - 1];
-    let newFileContent = content
-      .replace(lastImport, `${lastImport}${newReducerImport}`)
-      .replace(lastObjLine, `${lastObjLine}\n${newReducerLine}`);
-    fs.truncateSync(reducerPath);
-    fs.writeFileSync(reducerPath, newFileContent, {encoding: 'utf-8'});
+    try {
+      const reducerPath = path.join(this.contextRoot, 'src/reducers.js');
+      const content = fs.readFileSync(reducerPath, 'utf-8');
+      const nameImport = this.props.camelName.toUpperCase();
+      const newReducerImport = `\nimport { NAME as ${nameImport}, reducer as ${this.props.importName} } from './${this.props.moduleName}';`;
+      const newReducerLine = `  [${nameImport}]: ${this.props.importName},`;
+      const importRegex = /import \{ NAME as [A-Z]+, reducer as [a-zA-Z]+ \} from '\.\/[a-z\-]+';/g;
+      const reducerObjectLine = / {2}\[[A-Z]+\]: [A-Za-z]+,/g;
+      const objLines = content.match(reducerObjectLine);
+      if (!objLines) {
+        throw new Error('Could not parse reducer export object.');
+      }
+
+      const lastObjLine = objLines[objLines.length - 1];
+      const imports = content.match(importRegex);
+      if (!imports) {
+        throw new Error('Could not parse reducer imports.');
+      }
+
+      const lastImport = imports[imports.length - 1];
+      let newFileContent = content
+        .replace(lastImport, `${lastImport}${newReducerImport}`)
+        .replace(lastObjLine, `${lastObjLine}\n${newReducerLine}`);
+      fs.truncateSync(reducerPath);
+      fs.writeFileSync(reducerPath, newFileContent, {encoding: 'utf-8'});
+    } catch (e) {
+      this.log(e);
+      this.log(`${chalk.yellow('WARNING!')}: ${chalk.red('FAILED')} to update ${chalk.green('src/reducers.js')}! You will have to manually add new module reducer to ${chalk.green('src/reducers.js')}`);
+    }
   }
 
   end() {

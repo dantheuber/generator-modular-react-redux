@@ -7,7 +7,7 @@ export const <%= camelName %> = ({
 }) => (
   <div>
     { show && <h1>Shown!</h1> }
-    <button id="toggle" onClick={toggleShow}>{ show ? 'hide': 'show' }</button>
+    <button id="toggle" onClick={toggleShow}>{ show ? 'hide' : 'show' }</button>
   </div>
 );
 
