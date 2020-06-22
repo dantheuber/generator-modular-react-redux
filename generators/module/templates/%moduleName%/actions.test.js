@@ -8,7 +8,7 @@ const mockStore = configureStore([reduxThunk]);
 describe('<%= moduleName %> actions', () => {
   it(`#toggleshow() dispatches ${types.TOGGLE_SHOW} action`, () => {
     const store = mockStore({});
-    store.dispatch(actions.toggleName());
+    store.dispatch(actions.toggleShow());
     expect(store.getActions()).toEqual([{ type: types.TOGGLE_SHOW }]);
   });
 });

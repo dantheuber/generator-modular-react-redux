@@ -1,53 +1,30 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Example } from './Example';
+import { <%= camelName %> } from './<%= camelName %>';
 
-const increaseCount = jest.fn();
-const decreaseCount = jest.fn();
-const resetCount = jest.fn();
+const toggle = jest.fn();
 
 describe('Example component', () => {
   it('renders as expected', () => {
-    const wrapper = shallow(<Example
-      count={0}
-      randomNumber={0}
-      increaseCount={increaseCount}
-      decreaseCount={decreaseCount}
-      resetCount={resetCount}
+    const wrapper = shallow(<<%= camelName %>
+      show
+      toggleShow={toggle}
     />);
     expect(wrapper).toMatchSnapshot();
   });
-  it('calls increaseCount when increase button clicked', () => {
-    const wrapper = shallow(<Example
-      count={0}
-      randomNumber={0}
-      increaseCount={increaseCount}
-      decreaseCount={decreaseCount}
-      resetCount={resetCount}
+  it('renders as expected when not shown', () => {
+    const wrapper = shallow(<<%= camelName %>
+      show={false}
+      toggleShow={toggle}
     />);
-    wrapper.find('#increase').simulate('click');
-    expect(increaseCount).toHaveBeenCalled();
+    expect(wrapper).toMatchSnapshot();
   });
-  it('calls decreaseCount when decrease button is clicked', () => {
-    const wrapper = shallow(<Example
-      count={0}
-      randomNumber={0}
-      increaseCount={increaseCount}
-      decreaseCount={decreaseCount}
-      resetCount={resetCount}
+  it('calls toggleShow when toggle button is clicked', () => {
+    const wrapper = shallow(<<%= camelName %>
+      show
+      toggleShow={toggle}
     />);
-    wrapper.find('#decrease').simulate('click');
-    expect(decreaseCount).toHaveBeenCalled();
-  });
-  it('calls resetCount when reset button is clicked', () => {
-    const wrapper = shallow(<Example
-      count={0}
-      randomNumber={0}
-      increaseCount={increaseCount}
-      decreaseCount={decreaseCount}
-      resetCount={resetCount}
-    />);
-    wrapper.find('#reset').simulate('click');
-    expect(resetCount).toHaveBeenCalled();
+    wrapper.find('#toggle').simulate('click');
+    expect(toggle).toHaveBeenCalled();
   });
 });
